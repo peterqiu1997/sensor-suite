@@ -1,0 +1,75 @@
+body {
+    font-family: Garamond;
+}
+svg {
+    display: block;
+    margin: 0 auto;
+}  
+
+ul {
+    padding: 15px;
+    margin: 0;
+    text-align: left;
+    list-style: none;
+}
+
+.jumbotron {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+}
+
+.line {
+    fill: none;
+    stroke: #003865; 
+    stroke-width: 3;
+    shape-rendering: crispEdges;
+}
+
+.axis path, 
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-size: 16px;
+}
+
+.title {
+    font-size: 24px;
+}
+
+.stats {
+    font-size: 24px;
+}
+
+.text {
+    font-size: 48px;
+}
+
+.bottom  {
+    color: #003865;
+    background-color: #F9F9F9;
+    height: 100%;
+    display: inline-block;
+    text-align: center;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.23);
+}
+
+.bottom .text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+}
+
+.row-fluid.is-flex {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.row-fluid.is-flex > [class*='col-'] {
+    display: flex;
+    flex-direction: column;
+}
+
