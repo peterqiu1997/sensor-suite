@@ -51,16 +51,22 @@ ul {
 
 .axis text,
 .time {
-    font-size: 100%;
+    font-size: 130%;
 }
 
 .title {
     font-size: 180%;
 }
 
-.status {
+.clean {
     fill: green;
     stroke: green;
+    font-size: 180%;
+}
+
+.contaminated {
+    fill: red;
+    stroke: red;
     font-size: 180%;
 }
 

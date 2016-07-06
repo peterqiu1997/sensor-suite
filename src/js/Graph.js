@@ -4,16 +4,16 @@ export default class Graph extends React.Component {
 
     constructor() { // sloppy, maybe doesn't matter because never gets state changed outside of class? (isolated)
         super();
-        let n = 60,
+        const n = 60,
               duration = 1000;
 
-        let now = Date.now(),
+        const now = Date.now(),
             offLeft = now - (n - 3) * duration,
             firstPoint = offLeft + duration,
             lastPoint = firstPoint + (n - 4) * duration; 
 
-        let windowWidth = window.innerWidth;
-        let windowHeight = window.innerHeight;
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
 
         console.log(windowWidth + " " + windowHeight);
 
@@ -41,6 +41,8 @@ export default class Graph extends React.Component {
 
         const limit = 7000;
 
+        const clean = true;
+
         this.state = {
             n: n,
             duration: duration,
@@ -55,7 +57,8 @@ export default class Graph extends React.Component {
             offLeft: offLeft,
             firstPoint: firstPoint,
             lastPoint: lastPoint, 
-            limit: limit
+            limit: limit,
+            clean: clean
         };
 
         this.data = d3.range(n).map(function() { return 0; });
@@ -76,7 +79,16 @@ export default class Graph extends React.Component {
           lastPoint = firstPoint + (this.state.n - 4) * this.state.duration;
 
         // add new
-        this.data.push(Math.random() * 300 + 5000);
+        const toPush = Math.random() * 3000 + 5000;
+        if (this.data[58] > this.state.limit && this.state.clean) {
+            d3.select(".clean").attr("class", "contaminated").text("Danger");
+            this.state.clean = false;
+        } 
+        if (this.data[58] < this.state.limit && !this.state.clean) {
+            d3.select(".contaminated").attr("class", "clean").text("Clean");
+            this.state.clean = true;
+        } 
+        this.data.push(toPush);
 
         // update scale
         this.state.x = d3.time.scale()
@@ -160,7 +172,7 @@ export default class Graph extends React.Component {
             .attr("y", 0 - 10) // ------------ TO DO CHANGE THIS TO BE RESPONSIVE, RELATIVE TO WIDTH/HEIGHT
             .attr("class", "title")
             .style("text-anchor", "end")
-            .attr("class", "status")
+            .attr("class", "clean")
             .text("Clean");
 
 
