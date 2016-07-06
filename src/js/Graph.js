@@ -15,10 +15,6 @@ export default class Graph extends React.Component {
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
 
-        console.log(windowWidth + " " + windowHeight);
-
-        const aspectRatio = 20 / 7;
-
         const margin = {top: 50, right: 70, bottom: 50, left: 70},
             width = windowWidth * 0.8 - margin.left - margin.right,
             height = windowHeight * 3 / 5 - margin.top - margin.bottom; // TODO CHANGE THIS TO BE RESPONSIVE
@@ -47,7 +43,6 @@ export default class Graph extends React.Component {
             n: n,
             duration: duration,
             margin: margin,
-            aspectRatio: aspectRatio,
             width: width,
             height: height,
             x: x,
@@ -80,15 +75,16 @@ export default class Graph extends React.Component {
 
         // add new
         const toPush = Math.random() * 3000 + 5000;
-        if (this.data[58] > this.state.limit && this.state.clean) {
+        this.data.push(toPush);
+
+        if (this.data[this.state.n - 2] > this.state.limit && this.state.clean) {
             d3.select(".clean").attr("class", "contaminated").text("Danger");
             this.state.clean = false;
         } 
-        if (this.data[58] < this.state.limit && !this.state.clean) {
+        if (this.data[this.state.n - 2] < this.state.limit && !this.state.clean) {
             d3.select(".contaminated").attr("class", "clean").text("Clean");
             this.state.clean = true;
         } 
-        this.data.push(toPush);
 
         // update scale
         this.state.x = d3.time.scale()
@@ -118,6 +114,12 @@ export default class Graph extends React.Component {
 
         // pop front point
         this.data.shift();
+
+        d3.selectAll(".x.axis text").each(function() {
+            if (this.textContent.length > 3) {
+                this.classList.add("bold");
+            }
+        });
     }
 
     mount() {
@@ -142,7 +144,7 @@ export default class Graph extends React.Component {
             .attr("width", width)
             .attr("height", height);
 
-        const xAxis = svg.append("g")
+        this.xAxisNodes = svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
             .call(d3.svg.axis().scale(this.state.x).orient("bottom"));
@@ -174,7 +176,6 @@ export default class Graph extends React.Component {
             .style("text-anchor", "end")
             .attr("class", "clean")
             .text("Clean");
-
 
         svg.append("g")
             .attr("clip-path", "url(#clip)")

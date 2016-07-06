@@ -20,4 +20,16 @@
 <div id = "app">
 </div>
 </body>
+<script>
+var doit;
+function resizedw(){
+    location.reload();
+}
+window.onresize = function() {
+    clearTimeout(doit);
+    doit = setTimeout(function() {
+        resizedw();
+    }, 100);
+};
+</script>
 </html>
