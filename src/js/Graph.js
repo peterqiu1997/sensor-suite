@@ -12,9 +12,16 @@ export default class Graph extends React.Component {
             firstPoint = offLeft + duration,
             lastPoint = firstPoint + (n - 4) * duration; 
 
-        const margin = {top: 30, right: 50, bottom: 30, left: 50},
-            width = 1000 - margin.left - margin.right,
-            height = 300 - margin.top - margin.bottom; // TODO CHANGE THIS TO BE RESPONSIVE
+        let windowWidth = window.innerWidth;
+        let windowHeight = window.innerHeight;
+
+        console.log(windowWidth + " " + windowHeight);
+
+        const aspectRatio = 20 / 7;
+
+        const margin = {top: 50, right: 70, bottom: 50, left: 70},
+            width = windowWidth * 0.8 - margin.left - margin.right,
+            height = windowHeight * 3 / 5 - margin.top - margin.bottom; // TODO CHANGE THIS TO BE RESPONSIVE
 
         // chop off last two for basis interpolation
         const x = d3.time.scale()
@@ -38,6 +45,7 @@ export default class Graph extends React.Component {
             n: n,
             duration: duration,
             margin: margin,
+            aspectRatio: aspectRatio,
             width: width,
             height: height,
             x: x,
@@ -51,82 +59,12 @@ export default class Graph extends React.Component {
         };
 
         this.data = d3.range(n).map(function() { return 0; });
-
         this.tick = this.tick.bind(this);
-
+        this.mount = this.mount.bind(this);
     }
 
     componentDidMount() {
-        
-        const width = this.state.width,
-              height = this.state.height,
-              left = this.state.margin.left,
-              right = this.state.margin.right,
-              top = this.state.margin.top,
-              bottom = this.state.margin.bottom,
-              data = this.data,
-              line = this.state.line;
-
-        const svg = d3.select("svg")
-            .attr("width", width + left + right)
-            .attr("height", height + top + bottom)
-            .append("g")
-            .attr("transform", "translate(" + left + "," + top + ")");
-
-        svg.append("clipPath")
-            .attr("id","clip")
-            .append("rect")
-            .attr("width", width)
-            .attr("height", height);
-
-        const xAxis = svg.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + height + ")")
-            .call(d3.svg.axis().scale(this.state.x).orient("bottom"));
-
-        svg.append("g")
-            .attr("class", "y axis")
-            .call(d3.svg.axis().scale(this.state.y).orient("left"));
-
-        /*svg.append("text")
-            .attr("x", width)
-            .attr("y", height + bottom)
-            .style("text-anchor", "end")
-            .style("font-size", "2.5vh")
-            .text("Time");
-
-        /*svg.append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 0 - 55)
-            .attr("x", 0)
-            .style("text-anchor", "end")
-            .style("font-size", "16px")
-            .text("Count");*/
-
-
-        svg.append("line")
-            .attr({
-                "x1": 0,
-                "y1": this.state.y(this.state.limit),
-                "x2": width,
-                "y2": this.state.y(this.state.limit)
-            })
-            .style("stroke", "rgb(189, 189, 189)");
-
-        svg.append("text")
-            .attr("x", width / 2)
-            .attr("y", 0) // ------------ TO DO CHANGE THIS TO BE RESPONSIVE, RELATIVE TO WIDTH/HEIGHT
-            .attr("class", "title")
-            .style("text-anchor", "middle")
-            .text("Responsive Test");
-
-        svg.append("g")
-            .attr("clip-path", "url(#clip)")
-            .append("path")
-            .datum(data) 
-            .attr("class", "line")
-            .attr("d", line); 
-
+        this.mount();
         this.tick();
     }
 
@@ -145,7 +83,7 @@ export default class Graph extends React.Component {
             .domain([firstPoint, lastPoint])
             .range([0, this.state.width]);
 
-        /*this.state.x = d3.time.scale()
+        /*this.state.y = d3.time.scale()
             .domain([0, d3.max(data)])
             .range([height, 0]);*/ //------------ TODO CHANGE Y DOMAIN TO EXTENT?
 
@@ -170,18 +108,79 @@ export default class Graph extends React.Component {
         this.data.shift();
     }
 
+    mount() {
+        const width = this.state.width,
+              height = this.state.height,
+              left = this.state.margin.left,
+              right = this.state.margin.right,
+              top = this.state.margin.top,
+              bottom = this.state.margin.bottom,
+              data = this.data,
+              line = this.state.line;
+
+        const svg = d3.select("#d3Container").append("svg")
+            .attr("width", width + left + right)
+            .attr("height", height + top + bottom)
+            .append("g")
+            .attr("transform", "translate(" + left + "," + top + ")");
+
+        svg.append("clipPath")
+            .attr("id","clip")
+            .append("rect")
+            .attr("width", width)
+            .attr("height", height);
+
+        const xAxis = svg.append("g")
+            .attr("class", "x axis")
+            .attr("transform", "translate(0," + height + ")")
+            .call(d3.svg.axis().scale(this.state.x).orient("bottom"));
+
+        svg.append("g")
+            .attr("class", "y axis")
+            .call(d3.svg.axis().scale(this.state.y).orient("left"));
+
+        svg.append("line")
+            .attr({
+                "x1": 0,
+                "y1": this.state.y(this.state.limit),
+                "x2": width,
+                "y2": this.state.y(this.state.limit)
+            })
+            .style("stroke", "rgb(189, 189, 189)");
+
+        svg.append("text")
+            .attr("x", width / 2)
+            .attr("y", 0 - 10) // ------------ TO DO CHANGE THIS TO BE RESPONSIVE, RELATIVE TO WIDTH/HEIGHT
+            .attr("class", "title")
+            .style("text-anchor", "middle")
+            .text("Particle Count");
+
+        svg.append("text")
+            .attr("x", width)
+            .attr("y", 0 - 10) // ------------ TO DO CHANGE THIS TO BE RESPONSIVE, RELATIVE TO WIDTH/HEIGHT
+            .attr("class", "title")
+            .style("text-anchor", "end")
+            .attr("class", "status")
+            .text("Clean");
+
+
+        svg.append("g")
+            .attr("clip-path", "url(#clip)")
+            .append("path")
+            .datum(data) 
+            .attr("class", "line")
+            .attr("d", line); 
+    }
+
     // isolate from react
     shouldComponentUpdate() {
         return false;
     }
 
-    resize() {
-
-    }
-
     render() {
         return (
-            <svg></svg>
+            <div id = "d3Container">
+            </div>
         );
     }
 }

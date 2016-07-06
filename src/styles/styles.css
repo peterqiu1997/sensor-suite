@@ -1,13 +1,31 @@
 body {
     font-family: Garamond;
+    font-size: 16px;
+    line-height: 1.2;
 }
+
+@media only screen and (min-height: 600px) {
+            body { font-size: 100%; }
+            .row-fluid { margin-bottom: 25px; }
+}
+    
+@media only screen and (min-height: 800px) {
+            body { font-size: 150%; }
+            .row-fluid { margin-bottom: 40px; }
+}
+
+@media only screen and (min-height: 1000px) {
+            body { font-size: 180%; }
+            .row-fluid { margin-bottom: 55px; }
+}  
+
 svg {
     display: block;
     margin: 0 auto;
 }  
 
 ul {
-    padding: 15px;
+    padding: 30px;
     margin: 0;
     text-align: left;
     list-style: none;
@@ -31,24 +49,27 @@ ul {
     shape-rendering: crispEdges;
 }
 
-.axis text {
-    font-size: 16px;
-}
-
+.axis text,
 .time {
-    font-size: 30px;
+    font-size: 100%;
 }
 
 .title {
-    font-size: 24px;
+    font-size: 180%;
+}
+
+.status {
+    fill: green;
+    stroke: green;
+    font-size: 180%;
 }
 
 .stats {
-    font-size: 24px;
+    font-size: 180%;
 }
 
 .text {
-    font-size: 48px;
+    font-size: 350%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -72,4 +93,3 @@ ul {
     display: flex;
     flex-direction: column;
 }
-
