@@ -24,7 +24,6 @@ export default class App extends React.Component {
 
     calculateAverage(array) {
         const sum = array.reduce(function(x,y){return x+y;});
-        console.log("sum: " + sum);
         return sum / array.length;
     }
 
@@ -51,16 +50,16 @@ export default class App extends React.Component {
                 <div class = "container-fluid">
                     <div class = "row-fluid is-flex">
                         <div class = "col-lg-3">
-                            <Statistics data = {this.state.data} average = {this.calculateAverage} name = {"Statistics"}/>
+                            <Statistics data = {this.state.data} average = {this.calculateAverage}/>
                         </div>
                         <div class = "col-lg-3">
-                            <Display value = {this.state.temperature} name = {"Temperature"}/>  
+                            <Display value = {this.state.temperature}/>  
                         </div>   
                         <div class = "col-lg-3">                   
-                            <Display value = {this.state.humidity} name = {"Humidity"}/>
+                            <Display value = {this.state.humidity}/>
                         </div>
                         <div class = "col-lg-3">   
-                            <Display value = {this.state.pressure} name = {"Pressure"}/>
+                            <Display value = {this.state.pressure}/>
                         </div>
                     </div>
                 </div>

@@ -12,9 +12,9 @@ export default class Graph extends React.Component {
             firstPoint = offLeft + duration,
             lastPoint = firstPoint + (n - 4) * duration; 
 
-        const margin = {top: 35, right: 70, bottom: 35, left: 70},
+        const margin = {top: 30, right: 50, bottom: 30, left: 50},
             width = 1000 - margin.left - margin.right,
-            height = 300 - margin.top - margin.bottom; 
+            height = 300 - margin.top - margin.bottom; // TODO CHANGE THIS TO BE RESPONSIVE
 
         // chop off last two for basis interpolation
         const x = d3.time.scale()
@@ -57,7 +57,7 @@ export default class Graph extends React.Component {
     }
 
     componentDidMount() {
-
+        
         const width = this.state.width,
               height = this.state.height,
               left = this.state.margin.left,
@@ -79,7 +79,7 @@ export default class Graph extends React.Component {
             .attr("width", width)
             .attr("height", height);
 
-        svg.append("g")
+        const xAxis = svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
             .call(d3.svg.axis().scale(this.state.x).orient("bottom"));
@@ -103,7 +103,6 @@ export default class Graph extends React.Component {
             .style("font-size", "16px")
             .text("Count");*/
 
-        console.log(this.limit);
 
         svg.append("line")
             .attr({
@@ -119,7 +118,7 @@ export default class Graph extends React.Component {
             .attr("y", 0) // ------------ TO DO CHANGE THIS TO BE RESPONSIVE, RELATIVE TO WIDTH/HEIGHT
             .attr("class", "title")
             .style("text-anchor", "middle")
-            .text("Particle Count");
+            .text("Responsive Test");
 
         svg.append("g")
             .attr("clip-path", "url(#clip)")
@@ -176,12 +175,13 @@ export default class Graph extends React.Component {
         return false;
     }
 
+    resize() {
+
+    }
+
     render() {
         return (
-            <svg width="1000" height="300"
-            viewBox="0 0 1000 300"
-            preserveAspectRatio="xMidYMid meet">
-</svg>
+            <svg></svg>
         );
     }
 }
