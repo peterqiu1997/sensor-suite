@@ -7,16 +7,24 @@ export default class App extends React.Component {
 
     constructor() {
         super();
+        // "Single source of truth": All data is kept here.
 
         const temperature = 72,
               humidity = 50,
               pressure = 77.88;
 
-        const clean = true;
-              
-        const status = clean ? "Clean" : "Contaminated"; // TODO: make data handled by parent element
+        const n = 60,
+              duration = 1000,
+              limit = 7000;
+
+        const data = d3.range(n).map(function() { return 0; });
 
         this.state = {
+            n: n,
+            clean: true,
+            duration: duration,
+            limit: limit,
+            data: data,
             temperature: temperature,
             humidity: humidity, 
             pressure: pressure,
@@ -24,14 +32,40 @@ export default class App extends React.Component {
             percent: "%",
             inchesmercury: "inHg"
         }
+
+        this.setState = this.setState.bind(this);
     }
 
-    render() { // add everything inside a content row -> 8 column for graph, 4 for data, table layout for other stuffs
+    add(value) { // modify to read from serial port
+        this.state.data.push(value);
+    }
+
+    remove() {
+        this.state.data.shift();
+    }
+
+    checkClean() { // n - 2 because it is the point at end of graph (current time)
+        if (this.state.data[this.state.n - 2] >= this.state.limit && this.state.clean) {
+            this.setState({ clean: false });
+        } else if (this.state.data[this.state.n - 2] < this.state.limit && !this.state.clean) {
+            this.setState({ clean: true });
+        } 
+    }
+
+    render() { 
         return (
             <div>
                 <div class = "container-fluid">
                     <div class = "row-fluid jumbotron">
-                        <Graph data = {this.state.data} add = {this.addLast} remove = {this.removeFront}/>
+                        <Graph data = {this.state.data} 
+                                n = {this.state.n} 
+                                duration = {this.state.duration}
+                                clean = {this.state.clean}
+                                limit = {this.state.limit} 
+                                check = {this.checkClean.bind(this)}
+                                addLast = {this.add.bind(this)} 
+                                removeFirst = {this.remove.bind(this)}
+                        />
                     </div>
                 </div>
                 <div class = "container-fluid">
