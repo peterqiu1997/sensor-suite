@@ -5,7 +5,7 @@ body {
 }
 
 @media only screen and (min-height: 600px) {
-            body { font-size: 100%; }
+            body { font-size: 120%; }
             .row-fluid { margin-bottom: 25px; }
 }
     
@@ -26,6 +26,7 @@ svg {
 
 ul {
     padding: 30px;
+    padding-top: 0;
     margin: 0;
     text-align: left;
     list-style: none;
@@ -50,13 +51,13 @@ ul {
     font-size: 120%;
 }
 
-.title {
-    font-size: 150%;
-}
-
 .clean {
     fill: #008A5E;
     stroke: #008A5E;
+    font-size: 150%;
+}
+
+.title {
     font-size: 150%;
 }
 
@@ -91,6 +92,11 @@ ul {
     font-size: 200%;
     padding: 10px;
     float: right;
+}
+
+.timeframe {
+    font-size: 100%;
+    padding: 10px;
 }
 
 .bottom  {
