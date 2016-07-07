@@ -1,5 +1,5 @@
 body {
-    font-family: Garamond;
+    font-family: 'Raleway', sans-serif;
     font-size: 16px;
     line-height: 1.2;
 }
@@ -47,32 +47,32 @@ ul {
 
 .axis text,
 .time {
-    font-size: 130%;
+    font-size: 120%;
 }
 
 .title {
-    font-size: 180%;
+    font-size: 150%;
 }
 
 .clean {
-    fill: green;
-    stroke: green;
-    font-size: 180%;
-}
-
-.bold { 
-    fill: black;
-    stroke: black; 
-}
-
-.jumbotron {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.24);
+    fill: #008A5E;
+    stroke: #008A5E;
+    font-size: 150%;
 }
 
 .contaminated {
     fill: red;
     stroke: red;
-    font-size: 180%;
+    font-size: 150%;
+}
+
+.bold { 
+    fill: #008A5E;
+    stroke: #008A5E; 
+}
+
+.jumbotron {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.24);
 }
 
 .stats {
@@ -85,6 +85,12 @@ ul {
     top: 50%;
     left: 50%;
     transform: translateX(-50%) translateY(-50%);
+}
+
+.unit {
+    font-size: 200%;
+    padding: 10px;
+    float: right;
 }
 
 .bottom  {

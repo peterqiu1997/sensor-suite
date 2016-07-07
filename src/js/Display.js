@@ -10,6 +10,7 @@ export default class Display extends React.Component {
         return (
             <div class = "bottom">
                 <div class = "text">{this.props.value}</div>
+                <div class = "unit">{this.props.unit}</div>
             </div>
         );
     }

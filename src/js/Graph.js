@@ -78,7 +78,7 @@ export default class Graph extends React.Component {
         this.data.push(toPush);
 
         if (this.data[this.state.n - 2] > this.state.limit && this.state.clean) {
-            d3.select(".clean").attr("class", "contaminated").text("Danger");
+            d3.select(".clean").attr("class", "contaminated").text("Contaminated");
             this.state.clean = false;
         } 
         if (this.data[this.state.n - 2] < this.state.limit && !this.state.clean) {
@@ -144,7 +144,7 @@ export default class Graph extends React.Component {
             .attr("width", width)
             .attr("height", height);
 
-        this.xAxisNodes = svg.append("g")
+        svg.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + height + ")")
             .call(d3.svg.axis().scale(this.state.x).orient("bottom"));

@@ -10,8 +10,8 @@ export default class Statistics extends React.Component {
 		return ( // Text is rendered as span in React 
 			<div class = "bottom stats">
 				<ul>
-					<li>μ: {"5500"}</li>
-					<li>σ: {"0.27"}</li>
+					<li>Mean: {"5500"}</li>
+					<li>Deviation: {"0.27"}</li>
 					<li>Trend: Upwards</li>
 				</ul>
 			</div>

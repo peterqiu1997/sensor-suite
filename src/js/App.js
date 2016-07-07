@@ -8,19 +8,21 @@ export default class App extends React.Component {
     constructor() {
         super();
 
-        const temperature = 72 + "°F",
+        const temperature = 72,
               humidity = 50,
-              pressure = 29.88;
+              pressure = 77.88;
 
         const clean = true;
               
         const status = clean ? "Clean" : "Contaminated"; // TODO: make data handled by parent element
 
-
         this.state = {
             temperature: temperature,
-            humidity: humidity + "" + "%",
-            pressure: pressure 
+            humidity: humidity, 
+            pressure: pressure,
+            fahrenheit: "°F",
+            percent: "%",
+            inchesmercury: "inHg"
         }
     }
 
@@ -38,13 +40,13 @@ export default class App extends React.Component {
                             <Statistics/>
                         </div>
                         <div class = "col-lg-3">
-                            <Display value = {this.state.temperature}/>  
+                            <Display value = {this.state.temperature} unit = {this.state.fahrenheit}/>  
                         </div>   
                         <div class = "col-lg-3">                   
-                            <Display value = {this.state.humidity}/>
+                            <Display value = {this.state.humidity} unit = {this.state.percent}/>
                         </div>
                         <div class = "col-lg-3">   
-                            <Display value = {this.state.pressure}/>
+                            <Display value = {this.state.pressure} unit = {this.state.inchesmercury}/>
                         </div>
                     </div>
                 </div>
