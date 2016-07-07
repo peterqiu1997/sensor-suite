@@ -51,13 +51,13 @@ ul {
     font-size: 120%;
 }
 
-.clean {
-    fill: #008A5E;
-    stroke: #008A5E;
+.title {
     font-size: 150%;
 }
 
-.title {
+.clean {
+    fill: #008A5E;
+    stroke: #008A5E;
     font-size: 150%;
 }
 
@@ -73,6 +73,7 @@ ul {
 }
 
 .jumbotron {
+    padding-top: 24px;
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.24);
 }
 
@@ -95,7 +96,6 @@ ul {
 }
 
 .timeframe {
-    font-size: 100%;
     padding: 10px;
 }
 

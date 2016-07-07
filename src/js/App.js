@@ -36,6 +36,10 @@ export default class App extends React.Component {
         this.setState = this.setState.bind(this);
     }
 
+    sensorUpdate() {
+        
+    }
+
     add(value) { // modify to read from serial port
         this.state.data.push(value);
     }

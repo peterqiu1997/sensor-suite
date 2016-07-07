@@ -11,8 +11,9 @@ export default class Statistics extends React.Component {
 			<div class = "bottom stats">
 				<div class = "timeframe">{"Past Day"}</div>
 				<ul>
-					<li>μ: {"5500"}</li>
-					<li>σ: {"0.27"}</li>
+					<li>{"μ: 5500"}</li>
+					<li>{"σ: 0.27"}</li>
+					<li>{"r: +0.17"}</li>
 				</ul>
 			</div>
 		);

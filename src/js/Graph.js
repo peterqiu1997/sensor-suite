@@ -148,7 +148,7 @@ export default class Graph extends React.Component {
                 "x2": width,
                 "y2": this.state.y(this.props.limit)
             })
-            .style("stroke", "rgb(189, 189, 189)");
+            .style("stroke", "rgb(160, 160, 160)");
 
         svg.append("text")
             .attr("x", width / 2)
