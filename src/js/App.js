@@ -1,7 +1,9 @@
 import React from "react";
-import Graph from './Graph';
+import Graph from "./Graph";
 import Display from "./Display";
 import Statistics from "./Statistics";
+
+const socket = io();
 
 export default class App extends React.Component { 
 
@@ -17,14 +19,15 @@ export default class App extends React.Component {
               duration = 1000,
               limit = 7000;
 
-        const data = d3.range(n).map(function() { return 0; });
+        const newDataPoint = {};
 
         this.state = {
+            newDataPoint: newDataPoint,
             n: n,
             clean: true,
             duration: duration,
             limit: limit,
-            data: data,
+            data: d3.range(n).map(function() { return 0; }),
             temperature: temperature,
             humidity: humidity, 
             pressure: pressure,
@@ -32,8 +35,12 @@ export default class App extends React.Component {
             percent: "%",
             inchesmercury: "inHg"
         }
+    }
 
-        this.setState = this.setState.bind(this);
+    componentDidMount() {
+        socket.on('connection', function() {
+            console.log("App.js connected.");
+        }); //constantly update, fetch when needed
     }
 
     sensorUpdate() {

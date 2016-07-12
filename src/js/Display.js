@@ -3,7 +3,7 @@ import React from "react";
 export default class Display extends React.Component {
 
     constructor() {
-        super(); // NO TITLE NECESSARY? EVERYTHING BLUE, GREEN FLAGS POINTING -> 
+        super();
     }
 
     render() {

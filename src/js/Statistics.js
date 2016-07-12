@@ -9,10 +9,10 @@ export default class Statistics extends React.Component {
 	render() { 
 		return ( // Text is rendered as span in React 
 			<div class = "bottom stats">
-				<div class = "timeframe">{"Past Day"}</div>
+				<div class = "timeframe">{"Statistics"}</div>
 				<ul>
-					<li>{"μ: 5500"}</li>
-					<li>{"σ: 0.27"}</li>
+					<li>{"Mean: 5500"}</li>
+					<li>{"StdDev.: 0.27"}</li>
 					<li>{"r: +0.17"}</li>
 				</ul>
 			</div>

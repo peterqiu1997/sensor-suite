@@ -17,7 +17,7 @@ export default class Graph extends React.Component {
         const windowWidth = window.innerWidth,
               windowHeight = window.innerHeight;
 
-        const margin = {top: 50, right: 70, bottom: 50, left: 70},
+        const margin = {top: 50, right: 75, bottom: 50, left: 75},
             width = windowWidth * 0.8 - margin.left - margin.right,
             height = windowHeight * 3 / 5 - margin.top - margin.bottom; 
 
@@ -36,7 +36,7 @@ export default class Graph extends React.Component {
                     })
                     .y(function(d, i) { return y(d); });
 
-        this.state = {
+        this.state = { // only state it needs is entirely D3 
             margin: margin,
             width: width,
             height: height,
@@ -126,11 +126,24 @@ export default class Graph extends React.Component {
             .append("g")
             .attr("transform", "translate(" + left + "," + top + ")");
 
+        const focus = svg.append("g")
+            .attr("class", "focus")
+            .style("display", "none")
+            .append("circle")
+            .attr("r", 5)
+            .append("text")
+            .attr("x", 9)
+            .attr("dy", ".35em");
+
         svg.append("clipPath")
             .attr("id","clip")
             .append("rect")
+            .attr("class", "overlay")
             .attr("width", width)
-            .attr("height", height);
+            .attr("height", height)
+            .on("mouseover", function() { console.log("mouseover"); focus.style("display", null); })
+            .on("mouseout", function() { console.log("mouseout"); focus.style("display", "none"); })
+            .on("mousemove", this.mousemove);
 
         svg.append("g")
             .attr("class", "x axis")
@@ -171,6 +184,10 @@ export default class Graph extends React.Component {
             .datum(this.props.data) 
             .attr("class", "line")
             .attr("d", line); 
+    }
+
+    mousemove() {
+        console.log("mousemove");
     }
 
     // isolate from react
