@@ -2,15 +2,13 @@ import React from "react";
 import Graph from "./Graph";
 import Display from "./Display";
 import Statistics from "./Statistics";
-
-const socket = io();
+import io from "socket.io-client";
 
 export default class App extends React.Component { 
 
     constructor() {
         super();
         // "Single source of truth": All data is kept here.
-
         const temperature = 72,
               humidity = 50,
               pressure = 77.88;
@@ -19,10 +17,7 @@ export default class App extends React.Component {
               duration = 1000,
               limit = 7000;
 
-        const newDataPoint = {};
-
         this.state = {
-            newDataPoint: newDataPoint,
             n: n,
             clean: true,
             duration: duration,
@@ -37,14 +32,16 @@ export default class App extends React.Component {
         }
     }
 
-    componentDidMount() {
-        socket.on('connection', function() {
-            console.log("App.js connected.");
-        }); //constantly update, fetch when needed
+    componentWillMount() {
+        const socket = io(); // TODO: CHANGE THIS TO window.location.hostname WHEN DEPLOYING
+
+        socket.on('update', function(newDataPoint) {
+            console.log("Received");
+        });
     }
 
-    sensorUpdate() {
-        
+    componentWillUnmount() {
+        socket.emit('unmounting');
     }
 
     add(value) { // modify to read from serial port
