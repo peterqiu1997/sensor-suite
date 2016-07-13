@@ -16,7 +16,7 @@ const server = app.listen(port, function() {
 const io = require('socket.io')(server);
 
 io.on('connection', function(socket) {
-    console.log("There is a new connection.");
+    console.log("There is a new connection."); // TODO WHY DOES THIS RUN TWICE? FIGURE OUT CAPTURING/EMITTING EVENTS
 
     setInterval(function() {
         io.emit('update', {
