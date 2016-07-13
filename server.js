@@ -18,8 +18,8 @@ const io = require('socket.io')(server);
 io.on('connection', function(socket) {
     console.log("There is a new connection."); // TODO WHY DOES THIS RUN TWICE? FIGURE OUT CAPTURING/EMITTING EVENTS
 
-    setInterval(function() {
-        io.emit('update', {
+    const handle = setInterval(function() {
+        socket.emit('update', {
             temperature: Math.random() * 10 + 70,
             count: Math.random() * 300 + 5000,
             humidity: Math.random() * 5 + 30,
@@ -29,7 +29,7 @@ io.on('connection', function(socket) {
 
     socket.on('disconnect', function() {
         console.log("Client disconnected.");
-        clearInterval();
+        clearInterval(handle);
     });
 });
 
