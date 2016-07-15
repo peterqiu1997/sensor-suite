@@ -1,8 +1,8 @@
 import React from "react";
+import io from "socket.io-client";
 import Graph from "./Graph";
 import Display from "./Display";
 import Statistics from "./Statistics";
-import io from "socket.io-client";
 
 export default class App extends React.Component { 
 
@@ -16,7 +16,7 @@ export default class App extends React.Component {
 
         const n = 60,
               duration = 1000,
-              limit = 7000;
+              limit = 7000; // include temp so that temperature/humidity/pressure isnt updated that much
 
         this.state = {
             n: n,
@@ -35,11 +35,7 @@ export default class App extends React.Component {
     }
 
     componentWillMount() {  
-        const socket = io();  // TODO: CHANGE THIS TO USE ACTUAL SOCKET DATA
-    
-        socket.on('connect', function() {
-            socket.emit('mounted');
-        });
+        const socket = io();
         
         socket.on('update', function(newDataPoint) {
             this.setState({
@@ -49,10 +45,14 @@ export default class App extends React.Component {
                 pressure: newDataPoint.pressure
             }); 
         }.bind(this)); 
+
+        socket.on('disconnect', function() {
+            console.log("disconnected");
+        });
     }
 
-    add() { // modify to read from serial port
-        this.state.data.push(0 || this.state.count);       
+    add() {
+        this.state.data.push(this.state.count);       
     }
 
     remove() {
