@@ -11,7 +11,8 @@ export default class App extends React.Component {
         // "Single source of truth": All data is kept here.
         const temperature = 72,
               humidity = 50,
-              pressure = 77.88;
+              pressure = 77.88,
+              count = 0;
 
         const n = 60,
               duration = 1000,
@@ -22,30 +23,36 @@ export default class App extends React.Component {
             clean: true,
             duration: duration,
             limit: limit,
-            data: d3.range(n).map(function() { return 0; }),
             temperature: temperature,
             humidity: humidity, 
             pressure: pressure,
+            count: count,
             fahrenheit: "°F",
             percent: "%",
-            inchesmercury: "inHg"
+            inchesmercury: "inHg",
+            data: d3.range(n).map(function() { return 0; }),
         }
     }
 
-    componentWillMount() {
-        const socket = io(); // TODO: CHANGE THIS TO window.location.hostname WHEN DEPLOYING
-
-        socket.on('update', function(newDataPoint) {
-            console.log("Received");
+    componentWillMount() {  
+        const socket = io();  // TODO: CHANGE THIS TO USE ACTUAL SOCKET DATA
+    
+        socket.on('connect', function() {
+            socket.emit('mounted');
         });
+        
+        socket.on('update', function(newDataPoint) {
+            this.setState({
+                count: newDataPoint.count,
+                temperature: newDataPoint.temperature,
+                humidity: newDataPoint.humidity,
+                pressure: newDataPoint.pressure
+            }); 
+        }.bind(this)); 
     }
 
-    componentWillUnmount() {
-        socket.emit('unmounting');
-    }
-
-    add(value) { // modify to read from serial port
-        this.state.data.push(value);
+    add() { // modify to read from serial port
+        this.state.data.push(0 || this.state.count);       
     }
 
     remove() {

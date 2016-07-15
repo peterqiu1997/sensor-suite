@@ -13,10 +13,7 @@
     <!-- Font -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:200" rel="stylesheet">
 
-    <!-- jQuery -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js" defer></script>
-
-    <script src="./d3.min.js" defer></script>
+    <script src="./lib/d3.min.js" defer></script>
     <script src="./index.min.js" type="text/javascript" charset="utf-8" defer></script>
     
 </head>
@@ -24,16 +21,4 @@
 <div id = "app">
 </div>
 </body>
-<script>
-var doit;
-function resizedw(){
-    location.reload();
-}
-window.onresize = function() {
-    clearTimeout(doit);
-    doit = setTimeout(function() {
-        resizedw();
-    }, 100);
-};
-</script>
 </html>

@@ -1,5 +1,4 @@
 import React from "react";
-import Display from "./Display";
 
 export default class Statistics extends React.Component {
 	constructor() {

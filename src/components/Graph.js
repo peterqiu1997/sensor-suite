@@ -71,8 +71,8 @@ export default class Graph extends React.Component {
           lastPoint = firstPoint + (this.props.n - 4) * this.props.duration;
 
         // add new
-        const toPush = Math.random() * 3000 + 5000;
-        this.props.addLast(toPush); 
+        //const toPush = Math.random() * 3000 + 5000;
+        this.props.addLast(); 
 
         // check if below limit
         this.props.check();
@@ -81,8 +81,6 @@ export default class Graph extends React.Component {
         this.state.x = d3.time.scale()
             .domain([firstPoint, lastPoint])
             .range([0, this.state.width]);
-
-        //------------ TODO CHANGE Y DOMAIN TO EXTENT?
 
         // slide x-axis <--
         d3.select(".x.axis")
@@ -101,6 +99,7 @@ export default class Graph extends React.Component {
              .attr("transform", "translate(" + this.state.x(offLeft) + ",0)")
              .each("end", this.tick);
 
+        // emphasize certain times
         d3.selectAll(".x.axis text").each(function() {
             if (this.textContent.length > 3) {
                 this.classList.add("bold");
