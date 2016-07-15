@@ -44,11 +44,7 @@ export default class App extends React.Component {
                 humidity: newDataPoint.humidity,
                 pressure: newDataPoint.pressure
             }); 
-        }.bind(this)); 
-
-        socket.on('disconnect', function() {
-            console.log("disconnected");
-        });
+        }.bind(this));      
     }
 
     add() {
