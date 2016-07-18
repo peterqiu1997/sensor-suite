@@ -2,11 +2,6 @@ const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const mySchema = new Schema({
-	timeStamp: {
-		type: Date,
-		required: true,
-		unique: true
-	},
     temperature: {
     	type: Number,
     	required: true
@@ -21,7 +16,8 @@ const mySchema = new Schema({
     },
     count: {
     	type: Number,
-    	required: true
+    	required: true,
+        default: 0
     }
 });
 
