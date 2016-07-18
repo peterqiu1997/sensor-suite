@@ -16,7 +16,7 @@ body {
 
 @media only screen and (min-height: 1000px) {
             body { font-size: 180%; }
-            .row-fluid { margin-bottom: 55px; }
+            .row-fluid { margin-bottom: 65px; }
 }  
 
 svg {
@@ -64,7 +64,7 @@ ul {
 .contaminated {
     fill: red;
     stroke: red;
-    font-size: 250%;
+    font-size: 150%;
 }
 
 .bold { 
