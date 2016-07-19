@@ -6,8 +6,8 @@ import Statistics from "./Statistics";
 
 export default class App extends React.Component { 
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
         // "Single source of truth": All data is kept here.
         const temperature = 72,
               humidity = 50,
