@@ -31,12 +31,11 @@ export default class App extends React.Component {
             percent: "%",
             inchesmercury: "inHg",
             data: d3.range(n).map(function() { return 0; }),
-        }
+        } 
     }
 
-    componentWillMount() {  
+    componentWillMount() { 
         const socket = io();
-        
         socket.on('update', function(newDataPoint) {
             this.setState({
                 count: newDataPoint.count,
@@ -44,7 +43,11 @@ export default class App extends React.Component {
                 humidity: newDataPoint.humidity,
                 pressure: newDataPoint.pressure
             }); 
-        }.bind(this));      
+        }.bind(this)); 
+
+        socket.on('statistics', function(obj) {
+            console.log(obj);
+        });     
     }
 
     add() {
