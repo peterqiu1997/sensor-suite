@@ -55,11 +55,11 @@ const pulse = setInterval(function() {
         io.emit('update', dataPoint);
     }
 
-    dataPoint.save(function(err) {
+    /*dataPoint.save(function(err) {
         if (err) {
             console.log(err);
         } else {
             console.log("Saved successfully!");
         }
-    });
+    });*/
 }, duration);
