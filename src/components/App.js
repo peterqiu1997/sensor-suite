@@ -18,6 +18,10 @@ export default class App extends React.Component {
               duration = 1000,
               limit = 7000; // include temp so that temperature/humidity/pressure isnt updated that much
 
+        this.checkClean = this.checkClean.bind(this);
+        this.add = this.add.bind(this);
+        this.remove = this.remove.bind(this);
+
         this.state = {
             n: n,
             clean: true,
@@ -36,18 +40,29 @@ export default class App extends React.Component {
 
     componentWillMount() { 
         const socket = io();
-        socket.on('update', function(newDataPoint) {
+
+        socket.on('connect', function() { 
+            console.log("Client is requesting."); 
+            socket.emit('request'); 
+        });
+
+        socket.on('response', function(data) {
+            console.log("Server gave me: " + data);
+        }); 
+
+        socket.on('update', function(data) {
+            console.log('Update received!'); // TODO REMOVE
             this.setState({
-                count: newDataPoint.count,
-                temperature: newDataPoint.temperature,
-                humidity: newDataPoint.humidity,
-                pressure: newDataPoint.pressure
+                count: data.count,
+                temperature: data.temperature,
+                humidity: data.humidity,
+                pressure: data.pressure
             }); 
         }.bind(this)); 
 
-        socket.on('statistics', function(obj) {
-            console.log(obj);
-        });     
+        socket.on('stats', function(data) { 
+            console.log(data); 
+        });  
     }
 
     add() {
@@ -76,9 +91,9 @@ export default class App extends React.Component {
                                 duration = {this.state.duration}
                                 clean = {this.state.clean}
                                 limit = {this.state.limit} 
-                                check = {this.checkClean.bind(this)}
-                                addLast = {this.add.bind(this)} 
-                                removeFirst = {this.remove.bind(this)}
+                                check = {this.checkClean}
+                                addLast = {this.add} 
+                                removeFirst = {this.remove}
                         />
                     </div>
                 </div>

@@ -19,7 +19,7 @@ const mySchema = new Schema({
     	required: true,
         default: 0
     }
-});
+}, { timestamps: true });
 
 const DataModel = mongoose.model('myModels', mySchema);
 

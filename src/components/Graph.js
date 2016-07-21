@@ -185,10 +185,6 @@ export default class Graph extends React.Component {
             .attr("d", line); 
     }
 
-    mousemove() {
-        console.log("mousemove");
-    }
-
     // isolate from react
     shouldComponentUpdate() {
         return false;
