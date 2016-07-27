@@ -16,9 +16,13 @@ export default class App extends React.Component {
 
         const n = 60,
               duration = 1000,
-              limit = 0.07; // limit calculated at from arduinodev's sharp dust sensor tutorial
+              limit = 0.07; 
+                // limit calculated at from arduinodev's sharp dust sensor tutorial
+                // limit of "good" interval
 
+        
         this.socket = io();
+
         this.checkClean = this.checkClean.bind(this);
         this.add = this.add.bind(this);
         this.remove = this.remove.bind(this);
@@ -50,6 +54,7 @@ export default class App extends React.Component {
             if (data.count < 0) {
                 data.count = 0;
             }
+            
             this.setState({
                 count: data.count,
                 temperature: data.temperature,
@@ -76,6 +81,7 @@ export default class App extends React.Component {
     checkClean() { // n - 2 because it is the point at end of graph (current time)
         if (this.state.data[this.state.n - 2] >= this.state.limit && this.state.clean) {
             this.setState({ clean: false });
+            // make twilio call
         } else if (this.state.data[this.state.n - 2] < this.state.limit && !this.state.clean) {
             this.setState({ clean: true });
         } 

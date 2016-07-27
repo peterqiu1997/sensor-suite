@@ -6,15 +6,14 @@ const compression = require('compression');
 const DataModel = require('./dist/models/DataModel');
 const cfg = require('./config');
 const utils = require('./utils');
+
 const app = express();
+const server = app.listen(cfg.port);
 const duration = 1000;
 let connected = 0,
+    lastCall = 0,
     statsCounter = 0,
     open = false;
-
-const server = app.listen(cfg.port, function() {
-    console.log('listening on port ' + cfg.port);
-});
 
 // middleware
 app.use(compression());
@@ -31,6 +30,12 @@ mongoose.connect(cfg.uristring, function(err, res) {
 // socket.io
 const io = require('socket.io')(server);
 
+// twilio 
+const accountSid = cfg.ACCOUNT_SID;
+const authToken = cfg.AUTH_TOKEN;
+const client = require('twilio')(accountSid, authToken);
+
+// connect/disconnect functions
 io.on('connection', function(socket) {
     connected += 1;
     socket.on('request', function() {   
@@ -48,11 +53,24 @@ io.on('connection', function(socket) {
     });
 });
 
+// periodic updates
 const pulse = setInterval(function() {
     if (connected > 0 && open) {
         DataModel.findOne().sort({createdAt: -1}).exec(function(err, result) {
             if (!err) {
                 io.emit('update', result);
+                if (result.count > 0.07 && Date.now() > (lastCall + 300000)) {
+                    client.messages.create({
+                        to: '15107893847',
+                        from: '6502851722',
+                        body: 'Hello from App.js',
+                    }, function (err, message) {
+                        if (err) {
+                            console.log(err);
+                        }
+                    });
+                    lastCall = Date.now();
+                }
             }
         });
     }
