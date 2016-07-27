@@ -51,9 +51,7 @@ ul {
     font-size: 120%;
 }
 
-.title {
-    font-size: 150%;
-}
+.title { font-size: 150%; }
 
 .clean {
     fill: #008A5E;
@@ -77,20 +75,6 @@ ul {
     box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.24);
 }
 
-.overlay {
-  fill: none;
-  pointer-events: all;
-}
-
-.focus circle {
-  fill: none;
-  stroke: #003865;
-}
-
-.stats {
-    font-size: 200%;
-}
-
 .text {
     font-size: 350%;
     position: absolute;
@@ -105,8 +89,18 @@ ul {
     float: right;
 }
 
-.timeframe {
+.refresh { 
     padding: 10px;
+    float: right;
+    cursor: pointer; 
+}
+
+.statsList { font-size: 200%; }
+
+.statsTitle {
+    font-size: 200%;
+    padding: 10px;
+    float: center;
 }
 
 .bottom  {
