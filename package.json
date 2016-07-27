@@ -5,7 +5,7 @@
   "main": "webpack.config.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --content-base src --inline --hot",
+    "dev": "webpack-dev-server --content-base dist --inline --hot",
     "start": "node server.js"
   },
   "dependencies": {
@@ -19,11 +19,9 @@
     "babel-preset-stage-0": "^6.3.13",
     "compression": "^1.6.2",
     "express": "^4.14.0",
-    "history": "^1.17.0",
     "mongoose": "^4.5.4",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
-    "react-router": "^1.0.3",
     "socket.io": "^1.4.8",
     "socket.io-client": "^1.4.8"
   },

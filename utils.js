@@ -5,7 +5,7 @@ const parseJSON = function(json) {
     
 };
 
-const fetch = function(range) {
+const pastRange = function(range) {
     const nowMilli = Date.now();
     const now = new Date(nowMilli).toISOString();
     const before = new Date(nowMilli - range).toISOString();
@@ -13,5 +13,5 @@ const fetch = function(range) {
 };
 
 module.exports = {
-    fetchRange: fetch
+    past: pastRange
 };

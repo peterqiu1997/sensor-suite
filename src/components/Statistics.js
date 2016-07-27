@@ -1,20 +1,26 @@
 import React from "react";
 
 export default class Statistics extends React.Component {
-	constructor(props) {
-		super(props);
-	}
+    constructor(props) {
+        super(props);
+        this.handleClick = this.handleClick.bind(this);
+    }
 
-	render() { 
-		return ( // Text is rendered as span in React 
-			<div class = "bottom stats">
-				<div class = "timeframe">{"Statistics"}</div>
-				<ul>
-					<li>{"Mean: 5500"}</li>
-					<li>{"StdDev.: 0.27"}</li>
-					<li>{"r: +0.17"}</li>
-				</ul>
-			</div>
-		);
-	}
+    handleClick() {
+        this.props.updateStats();
+    }
+
+    render() { 
+        return ( // Text is rendered as span in React 
+            <div class = "bottom">
+            <img src = "./img/reload.svg" class = "refresh" onClick = {this.handleClick}/>
+            <div class = "statsTitle">{"Past Day"}</div>
+            <ul class = "statsList">
+                    <li>{"Mean: " + this.props.mean}</li>
+                    <li>{"StdDev: " + this.props.deviation}</li>
+                    <li>{"r: +0.17"}</li>
+                </ul>
+            </div>
+        );
+    }
 }

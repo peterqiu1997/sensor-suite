@@ -26,7 +26,7 @@ export default class Graph extends React.Component {
             .range([0, width]);
 
         const y = d3.scale.linear()
-            .domain([0, 10000])
+            .domain([0, 0.1])
             .range([height, 0]);
 
         const line = d3.svg.line()
@@ -36,7 +36,8 @@ export default class Graph extends React.Component {
                     })
                     .y(function(d, i) { return y(d); });
 
-        this.state = { // only state it needs is entirely D3 
+        // only state it needs is entirely D3
+        this.state = {  
             margin: margin,
             width: width,
             height: height,
@@ -50,7 +51,7 @@ export default class Graph extends React.Component {
         this.mount = this.mount.bind(this);
     }
 
-    componentDidMount() {
+    componentDidMount() { // render after container div is created
         this.mount();
         this.tick();
     }
@@ -71,7 +72,6 @@ export default class Graph extends React.Component {
           lastPoint = firstPoint + (this.props.n - 4) * this.props.duration;
 
         // add new
-        //const toPush = Math.random() * 3000 + 5000;
         this.props.addLast(); 
 
         // check if below limit
@@ -167,7 +167,7 @@ export default class Graph extends React.Component {
             .attr("y", 0 - 10) // ------------ TO DO CHANGE THIS TO BE RESPONSIVE, RELATIVE TO WIDTH/HEIGHT
             .attr("class", "title")
             .style("text-anchor", "middle")
-            .text("Particle Count");
+            .text("Dust Density - mg/m3.");
 
         svg.append("text")
             .attr("x", width)
