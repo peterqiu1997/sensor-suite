@@ -41,7 +41,7 @@ io.on('connection', function(socket) {
     socket.on('request', function() {   
         DataModel.find({ createdAt: utils.past(86400000)}) // data from past day
              .exec(function(err, result) {
-                if (!err) {
+                if (!err && result != null) {
                     socket.emit('stats', result);
                 } else {
                     socket.emit('stats', "Error")
@@ -57,7 +57,7 @@ io.on('connection', function(socket) {
 const pulse = setInterval(function() {
     if (connected > 0 && open) {
         DataModel.findOne().sort({createdAt: -1}).exec(function(err, result) {
-            if (!err) {
+            if (!err && result != null) {
                 io.emit('update', result);
                 if (result.count > 0.07 && Date.now() > (lastCall + 300000)) {
                     client.messages.create({
