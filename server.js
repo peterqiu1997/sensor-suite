@@ -66,7 +66,7 @@ const pulse = setInterval(function() {
                             to: NUMBERS[i],
                             from: cfg.FROM_NUMBER,
                             body: 'shimmy on down to the cleanroom - sent at: ' + 
-                                   new Date(Date.now()).toString().split(' ').slice(0, 5).join(' ')
+                                   new Date(Date.now()).toString().split(' ').slice(0, 4).join(' ')
                         }, function (err, message) {
                             if (err) {
                                 console.log(err);
