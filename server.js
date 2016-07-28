@@ -60,7 +60,7 @@ const pulse = setInterval(function() {
             if (!err && result != null) {
                 io.emit('update', result);
                 if (result.count > 0.07 && Date.now() > (lastCall + 300000)) {
-                    for (number in cfg.NUMBERS) {
+                    for (let number in cfg.NUMBERS) {
                         client.messages.create({
                             to: number,
                             from: cfg.FROM_NUMBER,
