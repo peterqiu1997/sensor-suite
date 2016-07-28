@@ -34,6 +34,7 @@ const io = require('socket.io')(server);
 const accountSid = cfg.ACCOUNT_SID;
 const authToken = cfg.AUTH_TOKEN;
 const client = require('twilio')(accountSid, authToken);
+const NUMBERS = [process.env.FIRST, process.env.SECOND, process.env.THIRD];
 
 // connect/disconnect functions
 io.on('connection', function(socket) {
@@ -60,9 +61,9 @@ const pulse = setInterval(function() {
             if (!err && result != null) {
                 io.emit('update', result);
                 if (result.count > 0.07 && Date.now() > (lastCall + 300000)) {
-                    for (let number in cfg.NUMBERS) {
+                    for (let num in NUMBERS) {
                         client.messages.create({
-                            to: number,
+                            to: num,
                             from: cfg.FROM_NUMBER,
                             body: 'shimmy on down to the cleanroom - sent at: ' + 
                                    new Date().toString().split(' ').slice(0, 5).join(' ')
