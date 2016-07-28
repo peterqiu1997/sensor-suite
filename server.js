@@ -61,9 +61,10 @@ const pulse = setInterval(function() {
                 io.emit('update', result);
                 if (result.count > 0.07 && Date.now() > (lastCall + 300000)) {
                     client.messages.create({
-                        to: '15107893847',
-                        from: '6502851722',
-                        body: 'Hello from App.js',
+                        to: '' + cfg.TO_NUMBER,
+                        from: '' + cfg.FROM_NUMBER,
+                        body: 'shimmy on down to the cleanroom - sent at: ' + 
+                               new Date().toString().split(' ').slice(0, 5).join(' ')
                     }, function (err, message) {
                         if (err) {
                             console.log(err);
