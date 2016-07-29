@@ -8,7 +8,7 @@ export default class App extends React.Component {
 
     constructor(props) {
         super(props);
-        // "Single source of truth": All data is kept here.
+        // "Single source of truth": All data is kept here. Functions to manipulate it are passed down as props.
         const temperature = "--",
               humidity = "--",
               pressure = "--",
@@ -93,35 +93,16 @@ export default class App extends React.Component {
     }
 
     handleStats(data) {
-        const mean = this.mean(data);
-        const stddev = this.standardDeviation(mean, data);
-        this.setState({
-            mean: mean,
-            deviation: stddev
-        });
+        this.download();
+        this.email();
     }
 
-    mean(data) {
-        let sum = 0;
-        data.map(function(x) { 
-             if (x.count >= 0) {
-                sum += x.count;
-             }
-        });
-        console.log(sum);
-        return (sum / data.length).toFixed(4);
+    download() {
+
     }
 
-    standardDeviation(mean, data) {
-        let squaredSum = 0;
-        data.map(function(x) {
-            if (x.count < 0) {
-                x.count = 0;
-            }
-            const diff = x.count - mean;
-            squaredSum += diff * diff;
-        });
-        return Math.sqrt(squaredSum / data.length).toFixed(4);
+    email() {
+
     }
 
     render() { 

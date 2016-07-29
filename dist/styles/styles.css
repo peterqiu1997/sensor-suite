@@ -89,18 +89,14 @@ ul {
     float: right;
 }
 
-.refresh { 
-    padding: 10px;
-    float: right;
-    cursor: pointer; 
-}
-
-.statsList { font-size: 200%; }
-
 .statsTitle {
     font-size: 200%;
     padding: 10px;
     float: center;
+}
+
+.options {
+    font-size: 200%;
 }
 
 .bottom  {
