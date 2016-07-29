@@ -11,8 +11,6 @@ const app = express();
 const server = app.listen(cfg.port);
 const duration = 1000;
 let connected = 0,
-    lastCall = 0,
-    statsCounter = 0,
     open = false;
 
 // middleware
@@ -29,14 +27,6 @@ mongoose.connect(cfg.uristring, function(err, res) {
 
 // socket.io
 const io = require('socket.io')(server);
-
-// twilio 
-const accountSid = cfg.ACCOUNT_SID;
-const authToken = cfg.AUTH_TOKEN;
-const client = require('twilio')(accountSid, authToken);
-const NUMBERS = [process.env.FIRST, process.env.SECOND, process.env.THIRD];
-console.log(NUMBERS);
-// connect/disconnect functions
 io.on('connection', function(socket) {
     connected += 1;
     socket.on('request', function() {   
@@ -60,21 +50,6 @@ const pulse = setInterval(function() {
         DataModel.findOne().sort({createdAt: -1}).exec(function(err, result) {
             if (!err && result != null) {
                 io.emit('update', result);
-                if (result.count >= 0.07 && Date.now() > (lastCall + 300000)) {
-                    for (let i = 0; i < NUMBERS.length; i += 1) {
-                        client.messages.create({
-                            to: NUMBERS[i],
-                            from: cfg.FROM_NUMBER,
-                            body: 'shimmy on down to the cleanroom - sent at: ' + 
-                                   new Date(Date.now()).toString().split(' ').slice(0, 4).join(' ')
-                        }, function (err, message) {
-                            if (err) {
-                                console.log(err);
-                            }
-                        });
-                    }
-                    lastCall = Date.now();
-                }
             }
         });
     }
