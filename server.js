@@ -30,14 +30,14 @@ const io = require('socket.io')(server);
 io.on('connection', function(socket) {
     connected += 1;
     socket.on('request', function() {   
-        DataModel.find({ createdAt: utils.past(86400000)}) // data from past day
+        /*DataModel.find({ createdAt: utils.past(86400000)}) // data from past day
              .exec(function(err, result) {
                 if (!err && result != null) {
                     socket.emit('stats', result);
                 } else {
                     socket.emit('stats', "Error")
                 }
-            });
+            });*/
     });
     socket.on('disconnect', function() {
         connected -= 1;
