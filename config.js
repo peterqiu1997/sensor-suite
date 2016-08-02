@@ -6,8 +6,8 @@ cfg.smptConfig = {
     service: 'gmail',
     secure: true,
     auth: {
-        user: '----',
-        pass: '----'
+        user: 'peterqiu1997@gmail.com',
+        pass: '***REMOVED***'
     }
 };
 
