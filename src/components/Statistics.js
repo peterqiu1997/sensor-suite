@@ -3,22 +3,35 @@ import React from "react";
 export default class Statistics extends React.Component {
     constructor(props) {
         super(props);
-        this.handleClick = this.handleClick.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
-    handleClick() {
-        this.props.updateStats();
+    handleSubmit(event) {
+        event.preventDefault();
+        //console.log(event.target.value);
+        this.props.email();
+    }
+
+    handleChange(event) {
+
     }
 
     render() { 
         return ( // Text is rendered as span in React 
             <div class = "bottom">
                 <div class = "statsTitle">{"Statistics"}</div>
-                    <ul class = "options">
-                            <li>{"Mean: " + this.props.mean}</li>
-                            <li>{"StdDev: " + this.props.deviation}</li>
-                            <li>{"r: +0.17"}</li>
-                    </ul>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="" id="csv"/>CSV</label>
+                </div>
+                <div class="checkbox">
+                    <label><input type="checkbox" value="" id="json"/>JSON</label>
+                </div>                
+                <form role="form" onSubmit = {this.handleSubmit} id = "email-form">
+                    <div class = "form-group">
+                        <input type = "email" class = "form-control" id = "email" placeholder = "type e-mail, press enter"/>
+                    </div>
+                </form>
             </div>
         );
     }

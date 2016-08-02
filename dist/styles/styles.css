@@ -92,11 +92,29 @@ ul {
 .statsTitle {
     font-size: 200%;
     padding: 10px;
+    padding-bottom: 0;
     float: center;
 }
 
-.options {
-    font-size: 200%;
+.checkbox { 
+    font-size: 185%; 
+    margin: 0;
+    text-align: left;
+    padding: 10px;
+}
+
+input[type*="checkbox"] {
+    margin-right: 10px;
+}
+
+#email {
+    color: #008A5E;
+    font-size: 185%;
+}
+
+.form-group {
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 .bottom  {
