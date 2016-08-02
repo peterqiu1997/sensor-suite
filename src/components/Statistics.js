@@ -4,17 +4,18 @@ export default class Statistics extends React.Component {
     constructor(props) {
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
-
+        this.handleTyping = this.handleTyping.bind(this);
+        this.emailValue = "";
     }
 
     handleSubmit(event) {
         event.preventDefault();
-        //console.log(event.target.value);
-        this.props.email();
+        console.log(this.emailValue);
+        this.props.email(this.emailValue);
     }
 
-    handleChange(event) {
-
+    handleTyping(event) {
+        this.emailValue = event.target.value;
     }
 
     render() { 
@@ -29,7 +30,7 @@ export default class Statistics extends React.Component {
                 </div>                
                 <form role="form" onSubmit = {this.handleSubmit} id = "email-form">
                     <div class = "form-group">
-                        <input type = "email" class = "form-control" id = "email" placeholder = "type e-mail, press enter"/>
+                        <input type = "email" onChange = {this.handleTyping} class = "form-control" id = "email" placeholder = "type e-mail, press enter"/>
                     </div>
                 </form>
             </div>

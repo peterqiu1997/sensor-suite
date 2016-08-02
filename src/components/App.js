@@ -82,15 +82,15 @@ export default class App extends React.Component {
         } 
     }
 
-    email(data) {
+    email(address) {
         const csv = document.getElementById('csv').checked;
         const json = document.getElementById('json').checked
         if (csv && !json) {
-            this.socket.emit('csv');
+            this.socket.emit('csv', address);
         } else if (json && !csv) {
-            this.socket.emit('json');
+            this.socket.emit('json', address);
         } else if (csv && json) {
-            this.socket.emit('csv and json');
+            this.socket.emit('csv and json', address);
         }
         document.getElementById('email-form').reset();
         document.getElementById('csv').checked = false;
