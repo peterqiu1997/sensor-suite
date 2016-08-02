@@ -1,8 +1,10 @@
-'use strict'
+'use strict';
 const express = require('express');
 const path = require('path');
 const mongoose = require('mongoose');
 const compression = require('compression');
+const nodemailer = require('nodemailer');
+const fs = require('fs');
 const DataModel = require('./dist/models/DataModel');
 const cfg = require('./config');
 const utils = require('./utils');
@@ -25,19 +27,28 @@ mongoose.connect(cfg.uristring, function(err, res) {
     if (!err) { open = true; }
 });
 
+// email 
+const transporter = nodemailer.createTransport(cfg.smptConfig);
+const mailOptions = {
+    from: '"Peter Qiu" <peterqiu1997@gmail.com>',
+    to: 'peter_qiu@jabil.com',
+};
+const CSVOptions = {
+    keys: ['createdAt', 'pressure', 'temperature', 'humidity', 'count']
+};
+
 // socket.io
 const io = require('socket.io')(server);
-io.on('connection', function(socket) {
+io.on('connection', function(socket) { // create sendCSV, sendJSON, sendCSVandJSON methods in util, including data stuff
     connected += 1;
-    socket.on('request', function() {   
-        /*DataModel.find({ createdAt: utils.past(86400000)}) // data from past day
-             .exec(function(err, result) {
-                if (!err && result != null) {
-                    socket.emit('stats', result);
-                } else {
-                    socket.emit('stats', "Error")
-                }
-            });*/
+    socket.on('json', function() { 
+        utils.sendJSON(transporter, mailOptions);
+    });
+    socket.on('csv', function() { 
+        utils.sendCSV(transporter, mailOptions, CSVOptions);
+    });
+    socket.on('csv and json', function() {
+        utils.sendBoth(transporter, mailOptions, CSVOptions);
     });
     socket.on('disconnect', function() {
         connected -= 1;
