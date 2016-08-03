@@ -91,6 +91,8 @@ export default class App extends React.Component {
             this.socket.emit('json', address);
         } else if (csv && json) {
             this.socket.emit('csv and json', address);
+        } else {
+            alert("Please select a format.");
         }
         document.getElementById('email-form').reset();
         document.getElementById('csv').checked = false;
