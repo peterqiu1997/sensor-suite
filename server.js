@@ -30,7 +30,8 @@ mongoose.connect(cfg.uristring, function(err, res) {
 // email 
 const transporter = nodemailer.createTransport(cfg.smptConfig);
 const mailOptions = {
-    from: '"Peter Qiu" <peterqiu1997@gmail.com>'
+    from: '"Peter Qiu" <peterqiu0408@gmail.com>',
+    html: 'Please do <b>not</b> respond.'
 };
 const CSVOptions = {
     keys: ['createdAt', 'pressure', 'temperature', 'humidity', 'count']
@@ -38,7 +39,7 @@ const CSVOptions = {
 
 // socket.io
 const io = require('socket.io')(server);
-io.on('connection', function(socket) { // create sendCSV, sendJSON, sendCSVandJSON methods in util, including data stuff
+io.on('connection', function(socket) { 
     connected += 1;
     socket.on('json', function(address) { 
         mailOptions.to = address;

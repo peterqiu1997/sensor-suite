@@ -10,7 +10,6 @@ export default class Statistics extends React.Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.emailValue);
         this.props.email(this.emailValue);
     }
 
