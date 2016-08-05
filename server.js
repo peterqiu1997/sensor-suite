@@ -4,6 +4,7 @@ const path = require('path');
 const mongoose = require('mongoose');
 const compression = require('compression');
 const nodemailer = require('nodemailer');
+const smtpTransport = require('nodemailer-smtp-transport');
 const fs = require('fs');
 const DataModel = require('./dist/models/DataModel');
 const cfg = require('./config');
@@ -28,7 +29,7 @@ mongoose.connect(cfg.uristring, function(err, res) {
 });
 
 // email 
-const transporter = nodemailer.createTransport(cfg.smptConfig);
+const transporter = nodemailer.createTransport(smtpTransport(cfg.smtpConfig));
 const mailOptions = {
     html: 'Please do <b>not</b> respond.'
 };
