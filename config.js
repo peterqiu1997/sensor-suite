@@ -1,7 +1,6 @@
 cfg = {};
 cfg.port = process.env.PORT || 3000;
 cfg.uristring = process.env.MONGODB_URI;
-cfg.EMAILS = 
 cfg.smtpConfig = {
     service: 'gmail',
     secure: true,
