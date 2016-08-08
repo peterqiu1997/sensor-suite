@@ -26,7 +26,7 @@ export default class Statistics extends React.Component {
                 </div>
                 <div class="checkbox">
                     <label><input type="checkbox" value="" id="json"/>JSON</label>
-                </div>                
+                </div>           
                 <form role="form" autocomplete = "false" onSubmit = {this.handleSubmit} id = "email-form">
                     <div class = "form-group">
                         <input type = "email" onChange = {this.handleTyping} class = "form-control" id = "email" placeholder = "type e-mail, press enter"/>
